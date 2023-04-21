@@ -7,7 +7,7 @@
 def recombination_freq(rec1, rec2, nonrec1, nonrec2):
     # freq = sum of recombinant / sum of all
     percentage = (rec1 + rec2) / (rec1 + rec2 + nonrec1 + nonrec2)
-    return 'The recombination frequency is {:.2%}'.format(percentage)
+    return 'The recombination frequency is {:.5%}'.format(percentage)
 
 
 print(recombination_freq(4, 8, 54, 67))
