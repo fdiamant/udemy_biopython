@@ -29,18 +29,29 @@
 # Degrees of freedom: N. of genotypes - N. of alleles
 # Compare the measured chi-aquare with the table for the calculated degrees of freedom.
 
+import scipy.stats
+
+
 def allele_freq(pp_number, pq_number, qq_number):
     population = pp_number + pq_number + qq_number
     observed_p_freq = (2 * pp_number + pq_number) / (2 * population)
     observed_q_freq = (2 * qq_number + pq_number) / (2 * population)
-    expected_pp_freq = pow(observed_p_freq, 2) * population
-    expected_pq_freq = 2 * population * observed_q_freq * observed_p_freq
-    expected_qq_freq = pow(observed_q_freq, 2) * population
+    expected_pp_number = pow(observed_p_freq, 2) * population
+    expected_pq_number = 2 * population * observed_q_freq * observed_p_freq
+    expected_qq_number = pow(observed_q_freq, 2) * population
 
-    # return observed_p_freq, observed_q_freq, expected_pq_freq, expected_pp_freq, expected_qq_freq
+    chi_square = (pow(pp_number - expected_pp_number, 2) / expected_pp_number) + (
+            pow(pq_number - expected_pq_number, 2) / expected_pq_number) + (
+                         pow(qq_number - expected_qq_number, 2) / expected_qq_number)
+
+    table_chi = scipy.stats.chi2.ppf(1 - .001, df=1)
+
     return 'The observed allele P frequency is {:.5} and the observed allele Q frequency is {:.5}.\nThe expected PP ' \
            'genotype number is {:.5}, the expected PQ genotype number is {:.5} and the expected QQ genotype number is ' \
-           '{:.5}\n'.format(observed_q_freq, observed_q_freq, expected_pp_freq, expected_pq_freq, expected_qq_freq)
+           '{:.5}\nThe chi_square is {:.5} which is larger than {:.5} for significance level 0.001.\nThus the ' \
+           'hypothesis stands with 99.9% certainty.'.format(
+        observed_q_freq, observed_q_freq, expected_pp_number, expected_pq_number, expected_qq_number, chi_square,
+        table_chi)
 
 
 print(allele_freq(1200, 745, 555))
