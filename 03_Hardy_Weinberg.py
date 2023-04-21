@@ -24,3 +24,7 @@
 #
 # x^2 = Σ[(Ο-Ε)^2/Ε]
 #Thus 6 parameters: PPobs, PQobs, QQobs, PPexp, PQexp, QQexp
+#
+# Explain the degrees of freedom.
+# Degrees of freedom: N. of genotypes - N. of alleles
+# Compare the measured chi-aquare with the table for the calculated degrees of freedom.
