@@ -9,6 +9,7 @@ import random
 from collections import Counter
 from tabulate import tabulate
 
+
 def reproduction_sim(genotype1, genotype2, offspring_number):
     # Check if the given genotypes are valid
     valid = {'AA', 'Aa', 'aa'}
@@ -35,7 +36,7 @@ def reproduction_sim(genotype1, genotype2, offspring_number):
     percentages = {}
     for offspring in offsprings:
         percentage = offsprings.count(offspring) / len(offsprings)
-        percentages[offspring] = round(100*percentage,2)
+        percentages[offspring] = round(100 * percentage, 2)
     # Store the offsprings in a dict with values as keys and their respective frequency as value
     offsprings_dict = dict(Counter(offsprings))
 
@@ -48,14 +49,3 @@ def reproduction_sim(genotype1, genotype2, offspring_number):
                     k == k2]
     # Print the result in a tabular format
     print(tabulate(joined_table, headers=['Genotype', 'Frequency', 'Percentage'], tablefmt='grid'))
-
-
-
-
-
-
-
-
-
-print(reproduction_sim('Aa', 'Aa', 1000))
-
