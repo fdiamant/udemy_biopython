@@ -10,12 +10,7 @@
 # Calculate the frequency of each allele.
 # Calculate the expected number for each genotype.
 # Calculate the chi-square based on the number of observed and expected individuals
-#
-# Expected number of each genotype:
-# ExpPP = freqP^2 x N
-# ExpPQ = freqP x freqQ x N x 2
-# ExpQQ = freqQ^2 x N
-#
+##
 # Chi-square:
 #
 # x^2 = Σ[(Ο-Ε)^2/Ε]
@@ -52,13 +47,35 @@ q_freq = allele_freq(qq_obs, pq_obs, n)
 
 print('The allele P frequency is {}.\nThe allele Q frequency is {}'.format(p_freq, q_freq))
 
+
+# Calculate the expected number of individuals for each genotype
+# Expected number of each genotype:
+# ExpPP = freqP^2 x N
+# ExpPQ = freqP x freqQ x N x 2
+# ExpQQ = freqQ^2 x N
+def genotype_exp(freq_a, population, freq_b=None):
+    if freq_b is not None:
+        result = int(round((freq_a * freq_b * population * 2), 0))
+    else:
+        result = int(round(population * (freq_a ** 2), 0))
+    return result
+
+
+pp_exp = genotype_exp(p_freq, n)
+pq_exp = genotype_exp(p_freq, n, q_freq)
+qq_exp = genotype_exp(q_freq, n)
+
+print(
+    '\nThe expected number of individuals with PP genotype are {0}.\nThe expected number of individuals with PQ '
+    'genotype are {1}.\nThe expected number of individuals with QQ genotype are {2}.\n'.format(
+        pp_exp, pq_exp, qq_exp))
+
 # def hypothesis_testing():
 #
 #
-#     p_freq = (2 * pp_obs + pq_obs) / (2 * n)
-#     q_freq = (2 * qq_obs + pq_obs) / (2 * n)
 #
-#     # Calculate the expected number of individuals for each genotype
+#
+#
 #     pp_exp = pow(p_freq, 2) * n
 #     pq_exp = 2 * n * q_freq * p_freq
 #     qq_exp = pow(q_freq, 2) * n
