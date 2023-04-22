@@ -3,24 +3,30 @@
 # This function must receive the sequence length as the only parameter.
 
 import random
-from termcolor import colored
 from colorama import init, Fore, Style
 
-def dna_generator(length):
+
+def random_dna_seq(length):
+    # Define a list with the dna bases
     base_list = ['A', 'T', 'C', 'G']
+    # Initialise an empty dna sequence and a counter
     dna_seq = ''
     i = 0
     while i < length:
+        # Choose a random base from the base list
         dna_seq += random.choice(base_list)
-        i+=1
-    return dna_seq
-
-def print_colored_dna(sequence):
-    init()  # initialize colorama
+        i += 1
+    # Initialize colorama
+    init()
+    # Set the colours for each base
     base_colors = {'A': Fore.RED, 'T': Fore.GREEN, 'C': Fore.YELLOW, 'G': Fore.BLUE}
-    for base in sequence:
-        color = base_colors.get(base, Fore.LIGHTBLACK_EX)
-        print(color + base, end='')
-    print(Style.RESET_ALL)  # reset colorama styles
+    # Color each base and define the colorama style as bright
+    # The end='' eliminates the space between the characters
+    for base in dna_seq:
+        color = base_colors.get(base, Fore.WHITE)
+        print(color + base + Style.BRIGHT, end='')
+    # Reset colorama styles
+    print(Style.RESET_ALL)
 
-print_colored_dna(dna_generator(100))
+# Example
+random_dna_seq(100)
