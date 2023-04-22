@@ -20,7 +20,7 @@ def print_colored_dna(sequence):
     base_colors = {'A': Fore.RED, 'T': Fore.GREEN, 'C': Fore.YELLOW, 'G': Fore.BLUE}
     for base in sequence:
         color = base_colors.get(base, Fore.LIGHTBLACK_EX)
-        print(color + base, end=' ')
+        print(color + base, end='')
     print(Style.RESET_ALL)  # reset colorama styles
 
 print_colored_dna(dna_generator(100))
