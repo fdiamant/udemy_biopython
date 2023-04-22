@@ -14,7 +14,7 @@
 #
 # Explain the degrees of freedom.
 # Degrees of freedom: N. of genotypes - N. of alleles
-# Compare the measured chi-aquare with the table for the calculated degrees of freedom.
+# Compare the measured chi-square with the table for the calculated degrees of freedom.
 
 
 # Retrieve the observed genotype numbers of the population
@@ -87,25 +87,16 @@ chi_squared = chi_sq(n_obs, n_exp)
 
 print('\nThe χ\u00B2 is {}'.format(chi_squared))
 
-# def hypothesis_testing():
-#     # Calculate the chisquare
-#     chi_sq = 0
-#     i=0
-#     while i <= len(gen_obs):
-#         chi_sq += (pow(gen_obs - gen_exp), 2) / gen_exp
-#         i+=1
-#
-#     chi_square = (pow(pp_obs - pp_exp, 2) / pp_exp) + (
-#             pow(pq_obs - pq_exp, 2) / pq_exp) + (
-#                          pow(qq_obs - qq_exp, 2) / qq_exp)
-#     return chi_square, chi_sq
-#
-#
-# # return 'The observed allele P frequency is {:.5} and the observed allele Q frequency is {:.5}.\nThe expected PP '
-# \ #        'genotype number is {:.5}, the expected PQ genotype number is {:.5} and the expected QQ genotype number
-# is ' \ #        '{:.5}\nThe chi_square is {:.5} which is larger than {:.5} for significance level 0.001.\nThus the
-# ' \ #        'hypothesis stands with 99.9% certainty.'.format( #     p_freq, q_freq, pp_exp, pq_exp, qq_exp,
-# chi_square, #     table_chi)
-#
-#
-# print(hypothesis_testing())
+# The degrees of freedom are the number of categories minus 1.
+# There are two categories in this example (P and Q). Thus, the degrees of freedom are 1
+# From the chi squared distribution table, for degrees of freedom 1 and critical value 0.005
+# the chi squared value is 7.879
+deg_of_freedom = 1
+p = 0.005
+chi = 7.879
+certainty = 1 - p
+
+print('\nFor {0} degree of freedom and p = {1} the χ\u00B2 equals {2}.\nSince the calculated χ\u00B2 ({3}) is greater '
+      'than {2}, the null hypothesis is rejected'.format(deg_of_freedom, p, chi, chi_squared))
+print('\nConsequently, there is a {:.2%} certainty that an evolutionary process is taking place in the specific '
+      'population for the oberved time period'.format(certainty))
