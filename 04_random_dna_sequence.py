@@ -7,15 +7,13 @@ from colorama import init, Fore, Style
 
 
 def random_dna_seq(length):
-    # Define a list with the dna bases
-    base_list = ['A', 'T', 'C', 'G']
+    # Define a tuple with the dna bases
+    base_list = ('A', 'T', 'C', 'G')
     # Initialise an empty dna sequence and a counter
     dna_seq = ''
-    i = 0
-    while i < length:
+    for base in range(length):
         # Choose a random base from the base list
         dna_seq += random.choice(base_list)
-        i += 1
     # Initialize colorama
     init()
     # Set the colours for each base
@@ -29,4 +27,4 @@ def random_dna_seq(length):
     print(Style.RESET_ALL)
 
 # Example
-random_dna_seq(103)
+random_dna_seq(97)
