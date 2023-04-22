@@ -6,19 +6,21 @@
 import time
 import random
 from colorama import init, Fore, Style
+from tabulate import tabulate
 
 
 def execution_timing():
     global interval
     dna_seq_lengths = [1000, 10000, 100000, 1000000]
-    times = []
+    times = {}
     for length in dna_seq_lengths:
         start = time.time()
         random_dna_seq(length)
         end = time.time()
         interval = end - start
-        times.append(interval)
-    print(times)
+        times[length] = interval
+    table = [(k, v) for k, v in times.items()]
+    print(tabulate(table, headers=['DNA length', 'Execution time'], tablefmt='grid'))
 
 
 def random_dna_seq(length):
