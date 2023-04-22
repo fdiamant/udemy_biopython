@@ -10,11 +10,7 @@
 # Calculate the frequency of each allele.
 # Calculate the expected number for each genotype.
 # Calculate the chi-square based on the number of observed and expected individuals
-##
-# Chi-square:
 #
-# x^2 = Σ[(Ο-Ε)^2/Ε]
-# Thus 6 parameters: PPobs, PQobs, QQobs, PPexp, PQexp, QQexp
 #
 # Explain the degrees of freedom.
 # Degrees of freedom: N. of genotypes - N. of alleles
@@ -28,7 +24,6 @@ qq_obs = int(input('Please input the count of entities possessing the QQ genotyp
 
 # Calculate the population number
 n = pp_obs + pq_obs + qq_obs
-obs = [pp_obs, pq_obs, qq_obs]
 
 print(
     '\nThe population is {0}.\nThe number of individuals with PP genotype are {1}.\nThe number of individuals with PQ '
@@ -70,20 +65,29 @@ print(
     'genotype are {1}.\nThe expected number of individuals with QQ genotype are {2}.\n'.format(
         pp_exp, pq_exp, qq_exp))
 
+# Calculate the chi-squared
+# Chi-squared:
+# x^2 = Σ[(Ο-Ε)^2/Ε]
+
+n_obs = [pp_obs, pq_obs, qq_obs]
+n_exp = [pp_exp, pq_exp, qq_exp]
+
+
+def chi_sq(obs, exp):
+    result = 0
+    i = 0
+    while i < len(obs):
+        delta = (obs[i] - exp[i]) ** 2 / (exp[i])
+        result += delta
+        i += 1
+    return result
+
+
+chi_squared = chi_sq(n_obs, n_exp)
+
+print('\nThe χ\u00B2 is {}'.format(chi_squared))
+
 # def hypothesis_testing():
-#
-#
-#
-#
-#
-#     pp_exp = pow(p_freq, 2) * n
-#     pq_exp = 2 * n * q_freq * p_freq
-#     qq_exp = pow(q_freq, 2) * n
-#
-#     # Assign the observed and expected results in two lists
-#     gen_obs = [pp_obs, pq_obs, qq_obs]
-#     gen_exp = [pp_exp, pq_exp, qq_exp]
-#
 #     # Calculate the chisquare
 #     chi_sq = 0
 #     i=0
