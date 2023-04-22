@@ -49,3 +49,6 @@ def reproduction_sim(genotype1, genotype2, offspring_number):
                     k == k2]
     # Print the result in a tabular format
     print(tabulate(joined_table, headers=['Genotype', 'Frequency', 'Percentage'], tablefmt='grid'))
+
+# Example
+reproduction_sim('Aa', 'Aa', 10000)
