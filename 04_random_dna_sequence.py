@@ -29,4 +29,4 @@ def random_dna_seq(length):
     print(Style.RESET_ALL)
 
 # Example
-random_dna_seq(100)
+random_dna_seq(103)
