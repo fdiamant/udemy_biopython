@@ -70,6 +70,7 @@ def reproduction_sim():
     joined_table = [(k, v1, v2) for (k, v1), (k2, v2) in zip(offsprings_freq_table, offsprings_percentage_table) if
                     k == k2]
     # Print the result in a tabular format
+    print('\nA possible offspring distribution is:')
     print(tabulate(joined_table, headers=['Genotype', 'Frequency', 'Percentage'], tablefmt='grid'))
 
 
