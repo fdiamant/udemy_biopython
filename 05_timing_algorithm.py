@@ -23,15 +23,13 @@ def execution_timing():
 
 
 def random_dna_seq(length):
-    # Define a list with the dna bases
-    base_list = ['A', 'T', 'C', 'G']
+    # Define a tuple with the dna bases
+    base_list = ('A', 'T', 'C', 'G')
     # Initialise an empty dna sequence and a counter
     dna_seq = ''
-    i = 0
-    while i < length:
+    for base in  range(length):
         # Choose a random base from the base list
         dna_seq += random.choice(base_list)
-        i += 1
     return dna_seq
 
 
