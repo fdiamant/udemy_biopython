@@ -9,12 +9,17 @@ import random
 from collections import Counter
 from tabulate import tabulate
 
+VALID = ('AA', 'Aa', 'aa')
 
-def reproduction_sim(genotype1, genotype2, offspring_number):
+
+def reproduction_sim():
+    genotype1 = input('Enter the genotype of the first parent:')
+    genotype2 = input('Enter the genotype of the second parent:')
+    offspring_number = int(input('Enter the number of offsprings:'))
     # Check if the given genotypes are valid
-    valid = {'AA', 'Aa', 'aa'}
+    valid = ('AA', 'Aa', 'aa')
     if genotype1 not in valid or genotype2 not in valid:
-        raise ValueError("results: genotype must be one of %r." % valid)
+        raise ValueError(f'results: genotype must be one of: {VALID}')
     else:
         # Create an empty list to store the offsprings
         offsprings = []
@@ -50,5 +55,6 @@ def reproduction_sim(genotype1, genotype2, offspring_number):
     # Print the result in a tabular format
     print(tabulate(joined_table, headers=['Genotype', 'Frequency', 'Percentage'], tablefmt='grid'))
 
+
 # Example
-reproduction_sim('Aa', 'Aa', 10000)
+reproduction_sim()
