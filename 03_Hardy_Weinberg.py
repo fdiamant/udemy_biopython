@@ -10,11 +10,7 @@
 # Calculate the frequency of each allele.
 # Calculate the expected number for each genotype.
 # Calculate the chi-square based on the number of observed and expected individuals
-#
-#
-# Explain the degrees of freedom.
-# Degrees of freedom: N. of genotypes - N. of alleles
-# Compare the measured chi-square with the table for the calculated degrees of freedom.
+
 
 
 # Retrieve the observed genotype numbers of the population
