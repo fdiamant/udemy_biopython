@@ -7,7 +7,7 @@
 
 def get_genotype_num(prompt="Enter number: "):
 
-    # (str) -> num
+    # (str) -> num (int)
     # Outputs a prompt and loops until a valid number is
     # entered by the user, at which point that value is
     # returned and the function terminates
