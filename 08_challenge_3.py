@@ -88,12 +88,33 @@ def complement_dna():
     return comp_seq
 
 
-def calc_content():
-    pass
+def calc_content(choice):
+    dna_seq = open_file()
+    percentage = ''
+    if choice == 3:
+        for base in dna_seq:
+            percentage = dna_seq.count('AT') / len(dna_seq)
+    elif choice == 4:
+        for base in dna_seq:
+            percentage = dna_seq.count('CG') / len(dna_seq)
+    else:
+        pass
+    return percentage
 
 
-def write_file():
-    pass
+def write_file(choice):
+    if choice == 1:
+        rna_seq = transcribe_dna()
+        with open('transcribed_dna.txt', 'w') as transcribed_dna:
+            # Write the rna_seq into the file
+            transcribed_dna.write(rna_seq)
+    elif choice == 2:
+        seq = complement_dna()
+        with open('cDNA.txt', 'w') as c_dna:
+            # Write the seq into the file
+            c_dna.write(seq)
+    else:
+        pass
 
 
 def main():
@@ -102,11 +123,14 @@ def main():
     dna_seq = open_file()
     tran = transcribe_dna()
     comp_dna = complement_dna()
+    test = calc_content(input_option)
+    write_file(input_option)
     print(f'The selected file is: {filepath}\n')
     print(f'The selected option is [{input_option}]: {OPTIONS[input_option - 1]}')
     print(dna_seq)
     print(tran)
     print(comp_dna)
+    print(test)
 
 
 main()
