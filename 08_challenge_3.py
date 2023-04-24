@@ -19,10 +19,11 @@ OPTIONS = ['Return the RNA sequence and write it to a file.', 'Return the comple
                                                               'file.', 'Show the A-T content.', 'Show the C-G content.']
 TEMP_PATH = '/Users/fdiamant/PycharmProjects/udemy_biopython/sars.fasta'
 
+
 def choose_file():
     while True:
         try:
-            filepath = TEMP_PATH #input("Please enter the path to a FASTA file: ")
+            filepath = TEMP_PATH  # input("Please enter the path to a FASTA file: ")
             if not filepath.endswith('.fasta'):
                 raise ValueError("Invalid file extension. Please enter a path to a FASTA file.")
             if not os.path.isfile(filepath):
@@ -55,14 +56,13 @@ def get_input(prompt="Choose an option: ", input_type=int, valid_options=None):
             else:
                 print(e)
 
+
 def transcribe_dna():
     pass
 
 
 def write_file():
     pass
-
-
 
 
 def comp_seq():
@@ -77,9 +77,7 @@ def main():
     dna_seq = choose_file()
     input_option = get_input(prompt='Please choose an option: ', valid_options=VALID)
     print(f'The selected file is: {dna_seq}\n')
-    print(f'The selected option is [{input_option}]: {OPTIONS[input_option-1]}')
-
+    print(f'The selected option is [{input_option}]: {OPTIONS[input_option - 1]}')
 
 
 main()
-
