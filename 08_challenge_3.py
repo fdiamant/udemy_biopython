@@ -14,9 +14,10 @@ Make an error treatment code, so that the program warns the user about an invali
 
 import os
 
-VALID = (1, 2, 3, 4)
+VALID = (1, 2, 3, 4, 5)
 OPTIONS = ['Return the RNA sequence and write it to a file.', 'Return the complementary sequence and write it to a '
-                                                              'file.', 'Show the A-T content.', 'Show the C-G content.']
+                                                              'file.', 'Show the A-T content.', 'Show the C-G content.',
+           'Exit']
 TEMP_PATH = '/Users/fdiamant/PycharmProjects/udemy_biopython/sars.fasta'
 
 
@@ -121,16 +122,17 @@ def main():
     filepath = choose_file()
     input_option = get_input(prompt='Please choose an option: ', valid_options=VALID)
     dna_seq = open_file()
-    tran = transcribe_dna()
-    comp_dna = complement_dna()
-    test = calc_content(input_option)
-    write_file(input_option)
-    print(f'The selected file is: {filepath}\n')
-    print(f'The selected option is [{input_option}]: {OPTIONS[input_option - 1]}')
-    print(dna_seq)
-    print(tran)
-    print(comp_dna)
-    print(test)
+    if input_option == 1:
+        print(transcribe_dna())
+        write_file(input_option)
+    elif input_option == 2:
+        print(complement_dna())
+        write_file(input_option)
+    elif input_option == 3 or input_option == 4:
+        print(calc_content(input_option))
+    else:
+        print('Thank you!')
 
 
+# example
 main()
