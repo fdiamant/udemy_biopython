@@ -8,22 +8,27 @@
 # NCBI Reference Sequence: NC_007795.1
 # from NCBI db
 
-def open_seq():
+def transcribe_seq():
     with open('sequence.fasta', 'r') as gen_seq:
         # Skip the first line
         gen_seq.readline()
         # Create a list with the rest of the lines
         seq_list = gen_seq.readlines()
         # Return a string from the created list
-        return ''.join(seq_list)
+        dna_seq = ''.join(seq_list)
 
+    # Transcription dictionary and process
+    dna_to_rna = {'A': 'U', 'T': 'A', 'C': 'G', 'G': 'C'}
+    rna_seq = ''
+    for base in dna_seq:
+        if base in dna_to_rna.keys():
+            rna_seq += dna_to_rna[base]
 
-def write_file():
     # Create a new file with write permission
     with open('transcribed_seq.txt', 'w') as transcribed_seq:
-        # Write the output of the open_seq function into the file
-        transcribed_seq.write(open_seq())
+        # Write the rna_seq into the file
+        transcribed_seq.write(rna_seq)
+
 
 # Example
-write_file()
-
+transcribe_seq()
