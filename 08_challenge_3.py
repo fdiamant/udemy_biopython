@@ -69,6 +69,26 @@ def open_file():
 
 
 def transcribe_dna():
+    dna_seq = open_file()
+    dna_to_rna = {'A': 'U', 'T': 'A', 'C': 'G', 'G': 'C'}
+    rna_seq = ''
+    for base in dna_seq:
+        if base in dna_to_rna.keys():
+            rna_seq += dna_to_rna[base]
+    return rna_seq
+
+
+def complement_dna():
+    dna_seq = open_file()
+    dna_complement_dict = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
+    comp_seq = ''
+    for base in dna_seq:
+        if base in dna_complement_dict.keys():
+            comp_seq += dna_complement_dict[base]
+    return comp_seq
+
+
+def calc_content():
     pass
 
 
@@ -76,20 +96,17 @@ def write_file():
     pass
 
 
-def comp_seq():
-    pass
-
-
-def calc_content():
-    pass
-
-
 def main():
     filepath = choose_file()
     input_option = get_input(prompt='Please choose an option: ', valid_options=VALID)
     dna_seq = open_file()
+    tran = transcribe_dna()
+    comp_dna = complement_dna()
     print(f'The selected file is: {filepath}\n')
     print(f'The selected option is [{input_option}]: {OPTIONS[input_option - 1]}')
+    print(dna_seq)
+    print(tran)
+    print(comp_dna)
 
 
 main()
