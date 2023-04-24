@@ -57,6 +57,17 @@ def get_input(prompt="Choose an option: ", input_type=int, valid_options=None):
                 print(e)
 
 
+def open_file():
+    with open(str(choose_file()), 'r') as gen_seq:
+        # Skip the first line
+        gen_seq.readline()
+        # Create a list with the rest of the lines
+        seq_list = gen_seq.readlines()
+        # Return a string from the created list
+        dna_seq = ''.join(seq_list)
+        return dna_seq
+
+
 def transcribe_dna():
     pass
 
@@ -74,9 +85,10 @@ def calc_content():
 
 
 def main():
-    dna_seq = choose_file()
+    filepath = choose_file()
     input_option = get_input(prompt='Please choose an option: ', valid_options=VALID)
-    print(f'The selected file is: {dna_seq}\n')
+    dna_seq = open_file()
+    print(f'The selected file is: {filepath}\n')
     print(f'The selected option is [{input_option}]: {OPTIONS[input_option - 1]}')
 
 
