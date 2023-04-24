@@ -11,27 +11,25 @@ The program must display a menu to the user, allowing her/him to choose from the
 
 Make an error treatment code, so that the program warns the user about an invalid option.
 """
-from tkinter import filedialog
+
+import os
 
 VALID = (1, 2, 3, 4)
 OPTIONS = ['Return the RNA sequence and write it to a file.', 'Return the complementary sequence and write it to a '
                                                               'file.', 'Show the A-T content.', 'Show the C-G content.']
-
+TEMP_PATH = '/Users/fdiamant/PycharmProjects/udemy_biopython/sars.fasta'
 
 def choose_file():
-    # Prompts the user to select a fasta file
-
-    # Set the arguments for the filedialog
-    options = {
-        'title': 'Select a FASTA file',
-        'filetypes': [('Text files', '*.fasta')],
-        'default extension': '.fasta'
-    }
-    # Show the file dialog box and get the selected file path
-    filepath = filedialog.askopenfilename(**options)
-    return filepath
-
-    # print("Selected file:", filepath)
+    while True:
+        try:
+            filepath = TEMP_PATH #input("Please enter the path to a FASTA file: ")
+            if not filepath.endswith('.fasta'):
+                raise ValueError("Invalid file extension. Please enter a path to a FASTA file.")
+            if not os.path.isfile(filepath):
+                raise FileNotFoundError("File not found. Please enter a valid path to a FASTA file.")
+            return filepath
+        except (ValueError, FileNotFoundError) as e:
+            print(e)
 
 
 def get_input(prompt="Choose an option: ", input_type=int, valid_options=None):
@@ -57,8 +55,7 @@ def get_input(prompt="Choose an option: ", input_type=int, valid_options=None):
             else:
                 print(e)
 
-
-def read_file():
+def transcribe_dna():
     pass
 
 
@@ -66,8 +63,6 @@ def write_file():
     pass
 
 
-def transcribe_dna():
-    pass
 
 
 def comp_seq():
@@ -77,4 +72,14 @@ def comp_seq():
 def calc_content():
     pass
 
-# genotype1 = get_input(prompt='Enter the genotype of the first parent: ', valid_options=VALID)
+
+def main():
+    dna_seq = choose_file()
+    input_option = get_input(prompt='Please choose an option: ', valid_options=VALID)
+    print(f'The selected file is: {dna_seq}\n')
+    print(f'The selected option is [{input_option}]: {OPTIONS[input_option-1]}')
+
+
+
+main()
+
