@@ -35,7 +35,7 @@ def main():
     fasta_file = choose_file()
     seq = open_file(fasta_file)
     while True:
-        input_option = get_input(prompt='Please choose an option: ', valid_options=VALID_OPTIONS)
+        input_option = get_input(prompt='\nPlease choose an option: ', valid_options=VALID_OPTIONS)
         print(f'\nThe chosen file is {fasta_file}\nand your option is [{input_option}], to "{OPTIONS[input_option]}"\n')
         if input_option == 1:
             print(f'The RNA sequence is:\n\n{transcribe_dna(seq)}\n')
@@ -57,7 +57,7 @@ def choose_file():
     while True:
         # Comment the TEMP_PATH and uncomment the input("Please enter the path to a FASTA file: ")
         # for a fully working program
-        filepath = input("Please enter the path to a FASTA file: ")  # TEMP_PATH
+        filepath = input("\nPlease enter the path to a FASTA file: ")  # TEMP_PATH
         try:
             if not filepath.endswith('.fasta'):
                 raise ValueError("Invalid file extension. Please enter a path to a FASTA file.")
@@ -73,7 +73,7 @@ def choose_file():
 # at which point that value is returned and the function terminates.
 def get_input(prompt="Choose an option: ", input_type=int, valid_options=None):
     while True:
-        print("The available option are:")
+        print("\nWhat would you like to do with the given sequence?\n")
         for key, value in OPTIONS.items():
             print(f"[{key}]:{value}")
         try:
@@ -98,6 +98,7 @@ def open_file(fasta_file):
         seq_list = seq.readlines()
         # Return a string from the created list
         dna = ''.join(seq_list)
+        seq.close()
         return dna
 
 
