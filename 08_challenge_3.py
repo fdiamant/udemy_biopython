@@ -93,6 +93,7 @@ def transcribe_dna():
             rna += base
     return rna
 
+
 # The transcribe_dna() function accepts a DNA strand as input and converts it to complementary dna
 # based on the dna_complement_dict dictionary. The function preserves any other characters,
 # such as newline characters (\n), without modification for formatting purposes.
@@ -106,6 +107,7 @@ def complement_dna():
         else:
             comp_seq += base
     return comp_seq
+
 
 # The calc_content() function calculates the A-T or C-G content in the provided dna
 def calc_content(choice):
@@ -121,14 +123,15 @@ def calc_content(choice):
     # Another option would be len(dna) - dna.count('\n'). However there might be other characters
     # present in the dna strand. Thus, strictly counting the dna nucleotides and getting the total
     # from there seems to be a more accurate way.
-    total = a+t+c+g
+    total = a + t + c + g
     if choice == 3:
-        percentage = (a+t)/total
+        percentage = (a + t) / total
     elif choice == 4:
-        percentage = (c+g)/total
+        percentage = (c + g) / total
     else:
         pass
-    return f'{round(100*percentage,2)}%'
+    return f'{round(100 * percentage, 2)}%'
+
 
 # The write_file() function saves as a .txt file the results
 # of the transcription process (choice 1)
@@ -160,7 +163,7 @@ def main():
             print(f'The complementary sequence is:\n\n{complement_dna()}\n')
             write_file(input_option)
         elif input_option == 3 or input_option == 4:
-            print(f'The {OPTIONS[input_option]} is {calc_content(input_option)}\n')
+            print(f'The {OPTIONS[3].replace("Show the ", "").replace(".", "")} is {calc_content(input_option)}\n')
         elif input_option == 5:
             print('Thank you!')
             exit()
