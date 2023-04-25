@@ -93,11 +93,9 @@ def calc_content(choice):
     dna_seq = open_file()
     percentage = ''
     if choice == 3:
-        for base in dna_seq:
-            percentage = dna_seq.count('AT') / len(dna_seq)
+        percentage = dna_seq.count('AT') / len(dna_seq)
     elif choice == 4:
-        for base in dna_seq:
-            percentage = dna_seq.count('CG') / len(dna_seq)
+        percentage = dna_seq.count('CG') / len(dna_seq)
     else:
         pass
     return percentage
@@ -135,8 +133,6 @@ def main():
         elif input_option == 5:
             print('Thank you!')
             exit()
-
-
 
 
 # example
