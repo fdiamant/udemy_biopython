@@ -13,6 +13,7 @@ Make an error treatment code, so that the program warns the user about an invali
 """
 
 import os
+import sys
 
 # Set the menu options in a dictionary
 OPTIONS = {1: 'Return the RNA sequence and write it to a file.',
@@ -24,8 +25,29 @@ OPTIONS = {1: 'Return the RNA sequence and write it to a file.',
 # we can create a set using the set() function. This set will contain all the keys from
 # the dictionary, representing the available options for the user to choose from.
 VALID_OPTIONS = set(OPTIONS.keys())
+
+
 # The TEMP_PATH is for testing purposes. See the choose_file() function for more
-TEMP_PATH = '/Users/fdiamant/PycharmProjects/udemy_biopython/sars.fasta'
+# TEMP_PATH = '/Users/USER/PycharmProjects/udemy_biopython/sars.fasta'
+
+
+def main():
+    fasta_file = choose_file()
+    seq = open_file(fasta_file)
+    while True:
+        input_option = get_input(prompt='Please choose an option: ', valid_options=VALID_OPTIONS)
+        print(f'\nThe chosen file is {fasta_file}\nand your option is [{input_option}], to "{OPTIONS[input_option]}"\n')
+        if input_option == 1:
+            print(f'The RNA sequence is:\n\n{transcribe_dna(seq)}\n')
+            write_file(input_option, seq)
+        elif input_option == 2:
+            print(f'The complementary sequence is:\n\n{complement_dna(seq)}\n')
+            write_file(input_option, seq)
+        elif input_option == 3 or input_option == 4:
+            print(f'The {OPTIONS[3].replace("Show the ", "").replace(".", "")} is {calc_content(input_option, seq)}\n')
+        elif input_option == 5:
+            print('Thank you!')
+            sys.exit()
 
 
 # The choose_file function prompts the user to provide a file in the fasta format for analysis.
@@ -33,10 +55,10 @@ TEMP_PATH = '/Users/fdiamant/PycharmProjects/udemy_biopython/sars.fasta'
 # ensuring that only appropriate files are selected for further analysis.
 def choose_file():
     while True:
+        # Comment the TEMP_PATH and uncomment the input("Please enter the path to a FASTA file: ")
+        # for a fully working program
+        filepath = input("Please enter the path to a FASTA file: ")  # TEMP_PATH
         try:
-            # Comment the TEMP_PATH and uncomment the input("Please enter the path to a FASTA file: ")
-            # for a fully working program
-            filepath = TEMP_PATH  # input("Please enter the path to a FASTA file: ")
             if not filepath.endswith('.fasta'):
                 raise ValueError("Invalid file extension. Please enter a path to a FASTA file.")
             if not os.path.isfile(filepath):
@@ -68,8 +90,8 @@ def get_input(prompt="Choose an option: ", input_type=int, valid_options=None):
 
 # The function open_file() opens the fasta file, discards the first line
 # and returns a string containing the dna sequence (and if present  \n characters)
-def open_file():
-    with open(str(choose_file()), 'r') as seq:
+def open_file(fasta_file):
+    with open(str(fasta_file), 'r') as seq:
         # Skip the first line
         seq.readline()
         # Create a list with the rest of the lines
@@ -82,11 +104,10 @@ def open_file():
 # The transcribe_dna() function accepts a DNA strand as input and converts it to RNA
 # based on the dna_to_rna dictionary. The function preserves any other characters,
 # such as newline characters (\n), without modification for formatting purposes.
-def transcribe_dna():
-    dna = open_file()
+def transcribe_dna(seq):
     dna_to_rna = {'A': 'U', 'T': 'A', 'C': 'G', 'G': 'C'}
     rna = ''
-    for base in dna:
+    for base in seq:
         if base in dna_to_rna.keys():
             rna += dna_to_rna[base]
         else:
@@ -97,11 +118,10 @@ def transcribe_dna():
 # The transcribe_dna() function accepts a DNA strand as input and converts it to complementary dna
 # based on the dna_complement_dict dictionary. The function preserves any other characters,
 # such as newline characters (\n), without modification for formatting purposes.
-def complement_dna():
-    dna = open_file()
+def complement_dna(seq):
     dna_complement_dict = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
     comp_seq = ''
-    for base in dna:
+    for base in seq:
         if base in dna_complement_dict.keys():
             comp_seq += dna_complement_dict[base]
         else:
@@ -110,14 +130,13 @@ def complement_dna():
 
 
 # The calc_content() function calculates the A-T or C-G content in the provided dna
-def calc_content(choice):
-    dna = open_file()
+def calc_content(choice, seq):
     percentage = ''
     # Count the A, T, C, G nucleotides in the dna
-    a = dna.count('A')
-    t = dna.count('T')
-    c = dna.count('C')
-    g = dna.count('G')
+    a = seq.count('A')
+    t = seq.count('T')
+    c = seq.count('C')
+    g = seq.count('G')
     # Calculate the total count of nucleotides in the dna
     # The len(dna) would not return an accurate result as it counts the \n characters as well
     # Another option would be len(dna) - dna.count('\n'). However there might be other characters
@@ -136,37 +155,21 @@ def calc_content(choice):
 # The write_file() function saves as a .txt file the results
 # of the transcription process (choice 1)
 # and the complement process (choice 2)
-def write_file(choice):
+def write_file(choice, seq):
     if choice == 1:
-        rna_seq = transcribe_dna()
+        rna_seq = transcribe_dna(seq)
         with open('rna.txt', 'w') as transcribed_dna:
             # Write the rna_seq into the file
             transcribed_dna.write(rna_seq)
+            transcribed_dna.close()
     elif choice == 2:
-        seq = complement_dna()
+        seq = complement_dna(seq)
         with open('cDNA.txt', 'w') as c_dna:
             # Write the seq into the file
             c_dna.write(seq)
+            c_dna.close()
     else:
         pass
-
-
-def main():
-    filepath = choose_file()
-    while True:
-        input_option = get_input(prompt='Please choose an option: ', valid_options=VALID_OPTIONS)
-        print(f'\nThe chosen file is {filepath}\nand your option is [{input_option}], to "{OPTIONS[input_option]}"\n')
-        if input_option == 1:
-            print(f'The RNA sequence is:\n\n{transcribe_dna()}\n')
-            write_file(input_option)
-        elif input_option == 2:
-            print(f'The complementary sequence is:\n\n{complement_dna()}\n')
-            write_file(input_option)
-        elif input_option == 3 or input_option == 4:
-            print(f'The {OPTIONS[3].replace("Show the ", "").replace(".", "")} is {calc_content(input_option)}\n')
-        elif input_option == 5:
-            print('Thank you!')
-            exit()
 
 
 # example
