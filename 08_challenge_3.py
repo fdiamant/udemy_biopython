@@ -79,40 +79,56 @@ def open_file():
         return dna
 
 
+# The transcribe_dna() function accepts a DNA strand as input and converts it to RNA
+# based on the dna_to_rna dictionary. The function preserves any other characters,
+# such as newline characters (\n), without modification for formatting purposes.
 def transcribe_dna():
-    dna_seq = open_file()
+    dna = open_file()
     dna_to_rna = {'A': 'U', 'T': 'A', 'C': 'G', 'G': 'C'}
-    rna_seq = ''
-    for base in dna_seq:
+    rna = ''
+    for base in dna:
         if base in dna_to_rna.keys():
-            rna_seq += dna_to_rna[base]
+            rna += dna_to_rna[base]
         else:
-            rna_seq += base
-    return rna_seq
+            rna += base
+    return rna
 
-
+# The transcribe_dna() function accepts a DNA strand as input and converts it to complementary dna
+# based on the dna_complement_dict dictionary. The function preserves any other characters,
+# such as newline characters (\n), without modification for formatting purposes.
 def complement_dna():
-    dna_seq = open_file()
+    dna = open_file()
     dna_complement_dict = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
     comp_seq = ''
-    for base in dna_seq:
+    for base in dna:
         if base in dna_complement_dict.keys():
             comp_seq += dna_complement_dict[base]
         else:
             comp_seq += base
     return comp_seq
 
-
+# The calc_content() function calculates the A-T or C-G content in the provided dna
 def calc_content(choice):
-    dna_seq = open_file()
+    dna = open_file()
     percentage = ''
+    # Count the A, T, C, G nucleotides in the dna
+    a = dna.count('A')
+    t = dna.count('T')
+    c = dna.count('C')
+    g = dna.count('G')
+    # Calculate the total count of nucleotides in the dna
+    # The len(dna) would not return an accurate result as it counts the \n characters as well
+    # Another option would be len(dna) - dna.count('\n'). However there might be other characters
+    # present in the dna strand. Thus, strictly counting the dna nucleotides and getting the total
+    # from there seems to be a more accurate way.
+    total = a+t+c+g
     if choice == 3:
-        percentage = (dna_seq.count('A') + dna_seq.count('T')) / (len(dna_seq)-dna_seq.count('\n'))
+        percentage = (a+t)/total
     elif choice == 4:
-        percentage = (dna_seq.count('C') + dna_seq.count('G')) / (len(dna_seq)-dna_seq.count('\n'))
+        percentage = (c+g)/total
     else:
         pass
-    return percentage
+    return f'{round(100*percentage,2)}%'
 
 
 def write_file(choice):
