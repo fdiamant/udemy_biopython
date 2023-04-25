@@ -24,7 +24,7 @@ OPTIONS = {1: 'Return the RNA sequence and write it to a file.',
 # we can create a set using the set() function. This set will contain all the keys from
 # the dictionary, representing the available options for the user to choose from.
 VALID_OPTIONS = set(OPTIONS.keys())
-# The TEMP_PATH is for testing purposes
+# The TEMP_PATH is for testing purposes. See the choose_file() function for more
 TEMP_PATH = '/Users/fdiamant/PycharmProjects/udemy_biopython/sars.fasta'
 
 
@@ -51,7 +51,7 @@ def choose_file():
 # at which point that value is returned and the function terminates.
 def get_input(prompt="Choose an option: ", input_type=int, valid_options=None):
     while True:
-        print("Please choose an option from the list below:")
+        print("The available option are:")
         for key, value in OPTIONS.items():
             print(f"[{key}]:{value}")
         try:
@@ -130,11 +130,13 @@ def calc_content(choice):
         pass
     return f'{round(100*percentage,2)}%'
 
-
+# The write_file() function saves as a .txt file the results
+# of the transcription process (choice 1)
+# and the complement process (choice 2)
 def write_file(choice):
     if choice == 1:
         rna_seq = transcribe_dna()
-        with open('transcribed_dna.txt', 'w') as transcribed_dna:
+        with open('rna.txt', 'w') as transcribed_dna:
             # Write the rna_seq into the file
             transcribed_dna.write(rna_seq)
     elif choice == 2:
@@ -147,20 +149,18 @@ def write_file(choice):
 
 
 def main():
-    # filepath = choose_file()
-    #
-    # print(filepath)
-    dna_seq = open_file()
+    filepath = choose_file()
     while True:
         input_option = get_input(prompt='Please choose an option: ', valid_options=VALID_OPTIONS)
+        print(f'\nThe chosen file is {filepath}\nand your option is [{input_option}], to "{OPTIONS[input_option]}"\n')
         if input_option == 1:
-            print(transcribe_dna())
+            print(f'The RNA sequence is:\n\n{transcribe_dna()}\n')
             write_file(input_option)
         elif input_option == 2:
-            print(complement_dna())
+            print(f'The complementary sequence is:\n\n{complement_dna()}\n')
             write_file(input_option)
         elif input_option == 3 or input_option == 4:
-            print(calc_content(input_option))
+            print(f'The {OPTIONS[input_option]} is {calc_content(input_option)}\n')
         elif input_option == 5:
             print('Thank you!')
             exit()
