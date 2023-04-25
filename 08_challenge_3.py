@@ -41,7 +41,7 @@ def get_input(prompt="Choose an option: ", input_type=int, valid_options=None):
     # point that value is returned and the function terminates.
 
     while True:
-        print("Please choose an option from the list below:")
+        # print("Please choose an option from the list below:")
 
         for idx, element in enumerate(OPTIONS):
             print(f"[{idx + 1}]:{element}")
@@ -119,19 +119,24 @@ def write_file(choice):
 
 
 def main():
-    filepath = choose_file()
-    input_option = get_input(prompt='Please choose an option: ', valid_options=VALID)
-    dna_seq = open_file()
-    if input_option == 1:
-        print(transcribe_dna())
-        write_file(input_option)
-    elif input_option == 2:
-        print(complement_dna())
-        write_file(input_option)
-    elif input_option == 3 or input_option == 4:
-        print(calc_content(input_option))
-    else:
-        print('Thank you!')
+    # filepath = choose_file()
+    #
+    # print(filepath)
+    while True:
+        input_option = get_input(prompt='Please choose an option: ', valid_options=VALID)
+        if input_option == 1:
+            print(transcribe_dna())
+            write_file(input_option)
+        elif input_option == 2:
+            print(complement_dna())
+            write_file(input_option)
+        elif input_option == 3 or input_option == 4:
+            print(calc_content(input_option))
+        elif input_option == 5:
+            print('Thank you!')
+            exit()
+
+
 
 
 # example
