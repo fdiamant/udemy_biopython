@@ -90,6 +90,8 @@ def get_input(prompt="Choose an option: ", input_type=int, valid_options=None):
 
 # The function open_file() opens the fasta file, discards the first line
 # and returns a string containing the dna sequence (and if present  \n characters)
+# It would be better for the function to check if each line starts with the > character
+# Now we assume that only the first line starts with >, thus is a header line
 def open_file(fasta_file):
     with open(str(fasta_file), 'r') as seq:
         # Skip the first line
